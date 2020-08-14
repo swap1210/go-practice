@@ -1,0 +1,7 @@
+var myxml = []byte(
+    `<emp>
+    <fname>Zeus</fname>
+    <age>22</age>
+    <location>BDC6E</location>
+    </emp>`
+)
