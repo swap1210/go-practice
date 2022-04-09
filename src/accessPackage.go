@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
+
 	"./mypackage"
 )
 
-func main(){
-	
-	
+func main() {
 	fmt.Println(mypackage.Addnumber(10, 20))
 }
