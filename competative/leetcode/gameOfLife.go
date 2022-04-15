@@ -124,86 +124,38 @@ func copy2D(original, copy [][]int) {
 	}
 }
 
-// function, which takes a string as
-// argument and return the reverse of string.
-func reverseStr(s string) string {
-	rns := []rune(s) // convert to rune
-	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
-
-		// swap the letters of the string,
-		// like first with last and so on.
-		rns[i], rns[j] = rns[j], rns[i]
-	}
-
-	// return the reversed string.
-	return string(rns)
-}
-
-//merge 2 arrays ignoring duplicates
-func mergeSortedArray(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] < b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else if a[i] > b[j] {
-			temp = append(temp, b[j])
-			j++
-		} else {
-			temp = append(temp, a[i])
-			i++
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
-//merge 2 arrays preserving duplicate
-func mergeSortedArrayPresDup(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] <= b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else {
-			temp = append(temp, b[j])
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
 //end common leet code helper func
 
-func fun_name(input []int) int {
-	ans := 0
-	return ans
+func gameOfLife(board [][]int) {
+	R, C := len(board), len(board[0])
+	// Dln("before", board)
+	temp := make([][]int, len(board))
+	for i := 0; i < R; i++ {
+		temp[i] = make([]int, len(board[0]))
+		for j := 0; j < C; j++ {
+			neighbour := 0
+			for n_i := i - 1; n_i < (i + 2); n_i++ {
+				for n_j := j - 1; n_j < (j + 2); n_j++ {
+					if n_i < 0 || n_j < 0 || n_i == R || n_j == C || (n_i == i && n_j == j) {
+						continue
+					} else {
+						// Dln(i, j, "neighbour", n_i, n_j)
+						neighbour += board[n_i][n_j]
+					}
+				}
+			}
+
+			// Dln(i, j, "=>", neighbour)
+			if neighbour < 2 || neighbour > 3 {
+				temp[i][j] = 0
+			} else if neighbour == 3 {
+				temp[i][j] = 1
+			} else {
+				temp[i][j] = board[i][j]
+			}
+		}
+	}
+	copy2D(temp, board)
 }
 
 //copy till here
@@ -215,5 +167,8 @@ func main() {
 	// g_df = false //default
 	Dln("DEBUG MODE")
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	input := [][]int{{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}}
+	gameOfLife(input)
+	// [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+	fmt.Println(input)
 }

@@ -201,8 +201,20 @@ func mergeSortedArrayPresDup(a, b []int) []int {
 
 //end common leet code helper func
 
-func fun_name(input []int) int {
-	ans := 0
+func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	ans := 0.00
+	temp := mergeSortedArrayPresDup(nums1, nums2)
+
+	mean := float64(len(temp)) / 2
+	Dln("Mean", mean)
+	if mean == math.Trunc(mean) {
+		Dln("int", temp[int(mean)-1], temp[int(mean)])
+		ans = (float64(temp[int(mean)-1]+temp[int(mean)]) / 2)
+	} else {
+		ans = float64(temp[int(math.Ceil(mean))-1])
+	}
+
+	Dln(temp)
 	return ans
 }
 
@@ -215,5 +227,6 @@ func main() {
 	// g_df = false //default
 	Dln("DEBUG MODE")
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	i1, i2 := []int{1, 2}, []int{3, 4}
+	fmt.Println(findMedianSortedArrays(i1, i2))
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 //max heap start
@@ -139,70 +140,21 @@ func reverseStr(s string) string {
 	return string(rns)
 }
 
-//merge 2 arrays ignoring duplicates
-func mergeSortedArray(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] < b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else if a[i] > b[j] {
-			temp = append(temp, b[j])
-			j++
-		} else {
-			temp = append(temp, a[i])
-			i++
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
-//merge 2 arrays preserving duplicate
-func mergeSortedArrayPresDup(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] <= b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else {
-			temp = append(temp, b[j])
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
 //end common leet code helper func
 
-func fun_name(input []int) int {
-	ans := 0
+func reverse(input int) int {
+	str := fmt.Sprint(input)
+	negative := str[0] == '-'
+	if negative {
+		str = str[1:]
+	}
+	ans, _ := strconv.Atoi(reverseStr(str))
+	if negative {
+		ans *= -1
+	}
+	if ans > math.MaxInt32 || ans < math.MinInt32 {
+		return 0
+	}
 	return ans
 }
 
@@ -215,5 +167,5 @@ func main() {
 	// g_df = false //default
 	Dln("DEBUG MODE")
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	fmt.Println(reverse(-123))
 }

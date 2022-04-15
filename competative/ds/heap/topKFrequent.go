@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 	"math"
 )
@@ -79,13 +80,13 @@ func sumInts(array []int) int {
 	return result
 }
 
-func D(a ...interface{}) {
+func D(a interface{}) {
 	if g_df {
 		fmt.Print(a)
 	}
 }
 
-func Dln(a ...interface{}) {
+func Dln(a interface{}) {
 	if g_df {
 		fmt.Println(a)
 	}
@@ -113,97 +114,46 @@ func mapValsInts(mymap map[int]int) []int {
 	return keys
 }
 
-//copy 2d array by value
-func copy2D(original, copy [][]int) {
-	R, C := len(original), len(original[0])
-	for x := 0; x < R; x++ {
-		copy[x] = make([]int, C)
-		for y := 0; y < C; y++ {
-			copy[x][y] = original[x][y]
-		}
-	}
-}
-
-// function, which takes a string as
-// argument and return the reverse of string.
-func reverseStr(s string) string {
-	rns := []rune(s) // convert to rune
-	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
-
-		// swap the letters of the string,
-		// like first with last and so on.
-		rns[i], rns[j] = rns[j], rns[i]
-	}
-
-	// return the reversed string.
-	return string(rns)
-}
-
-//merge 2 arrays ignoring duplicates
-func mergeSortedArray(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] < b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else if a[i] > b[j] {
-			temp = append(temp, b[j])
-			j++
-		} else {
-			temp = append(temp, a[i])
-			i++
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
-//merge 2 arrays preserving duplicate
-func mergeSortedArrayPresDup(a, b []int) []int {
-	var temp []int
-	i, j, k := 0, 0, 0
-	for i < len(a) && j < len(b) {
-		if a[i] <= b[j] {
-			temp = append(temp, a[i])
-			i++
-		} else {
-			temp = append(temp, b[j])
-			j++
-		}
-		k++
-	}
-
-	for i < len(a) {
-		temp = append(temp, a[i])
-		i++
-	}
-
-	for j < len(b) {
-		temp = append(temp, b[j])
-		j++
-	}
-
-	return temp
-}
-
 //end common leet code helper func
 
-func fun_name(input []int) int {
-	ans := 0
+func findKthLargest(nums []int, k int) int {
+	h := &MinHeap{}
+
+	for _, val := range nums {
+		// D("b")
+		// Dln(*h, val, h.Peek(), h.Len() == k, val > h.Peek())
+		if h.Len() == k && val > h.Peek() {
+			heap.Pop(h)
+			heap.Push(h, val)
+		} else if h.Len() < k {
+			heap.Push(h, val)
+		}
+		// D("a")
+		// Dln(*h)
+	}
+	// Dln(h)
+	ans := heap.Pop(h).(int)
 	return ans
+}
+
+func topKFrequent(nums []int, k int) []int {
+	m := make(map[int]int)
+	for _, v := range nums {
+		if _, ok := m[v]; ok {
+			m[v]++
+		} else {
+			m[v] = 1
+		}
+	}
+
+	kthLargest := findKthLargest(mapValsInts(m), k)
+	ans_arr := []int{}
+	for k, f := range m {
+		if f >= kthLargest {
+			ans_arr = append(ans_arr, k)
+		}
+	}
+	return ans_arr
 }
 
 //copy till here
@@ -213,7 +163,7 @@ func main() {
 	//comment this flag set before submissionor ignore for function base exams
 	g_df = true
 	// g_df = false //default
-	Dln("DEBUG MODE")
+	Dln("DEBUG MODE\n")
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	fmt.Println(topKFrequent([]int{1, 1, 1, 2, 2, 3}, 2))
 }

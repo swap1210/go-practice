@@ -201,8 +201,57 @@ func mergeSortedArrayPresDup(a, b []int) []int {
 
 //end common leet code helper func
 
-func fun_name(input []int) int {
-	ans := 0
+func generateMatrix(n int) [][]int {
+
+	if n == 1 {
+		return [][]int{{1}}
+	}
+
+	ans := make([][]int, n)
+	for i := 0; i < n; i++ {
+		ans[i] = make([]int, n)
+	}
+	ctr := 1
+	top, bottom, left, right := 0, n, 0, n
+	for top < bottom && left < right {
+
+		//left to right
+		// Dln("a", top, bottom, left, right)
+		for i := left; i < right; i++ {
+			// Dln("a", top, i)
+			ans[top][i] = ctr
+			ctr++
+		}
+		top++
+
+		// Dln("b", top, bottom, left, right)
+		for i := top; i < bottom; i++ {
+			// Dln("b", i, right-1)
+			ans[i][right-1] = ctr
+			ctr++
+		}
+		right--
+
+		if !(top < bottom && left < right) {
+			break
+		}
+
+		// Dln("c", top, bottom, left, right)
+		for i := right - 1; i > left-1; i-- {
+			//Dln("c", bottom-1, i)
+			ans[bottom-1][i] = ctr
+			ctr++
+		}
+		bottom--
+
+		// Dln("d init", top, bottom, left, right)
+		for i := bottom - 1; i >= top; i-- {
+			// Dln("d", i, left)
+			ans[i][left] = ctr
+			ctr++
+		}
+		left++
+	}
 	return ans
 }
 
@@ -215,5 +264,15 @@ func main() {
 	// g_df = false //default
 	Dln("DEBUG MODE")
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	in := 3
+	// fmt.Println(fmt.Sprint(in, out))
+	res := generateMatrix(in)
+
+	for i := 0; i < len(res); i++ {
+		for j := 0; j < len(res[0]); j++ {
+			fmt.Print(res[i][j])
+		}
+		fmt.Println()
+	}
+
 }
