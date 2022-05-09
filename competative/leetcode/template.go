@@ -81,13 +81,18 @@ func sumInts(array []int) int {
 
 func D(a ...interface{}) {
 	if g_df {
-		fmt.Print(a)
+		for x := range a {
+			fmt.Print(x)
+		}
 	}
 }
 
 func Dln(a ...interface{}) {
 	if g_df {
-		fmt.Println(a)
+		for x := range a {
+			fmt.Print(x)
+		}
+		fmt.Println()
 	}
 }
 
@@ -104,7 +109,6 @@ func mapKeysInts(mymap map[int]int) []int {
 
 func mapValsInts(mymap map[int]int) []int {
 	keys := make([]int, len(mymap))
-
 	i := 0
 	for _, v := range mymap {
 		keys[i] = v
@@ -124,9 +128,10 @@ func copy2D(original, copy [][]int) {
 	}
 }
 
+//String op
 // function, which takes a string as
 // argument and return the reverse of string.
-func reverseStr(s string) string {
+func strReverse(s string) string {
 	rns := []rune(s) // convert to rune
 	for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
 
@@ -138,6 +143,15 @@ func reverseStr(s string) string {
 	// return the reversed string.
 	return string(rns)
 }
+
+//swap 2 characters i and j NO VALIDATION
+func strCharSwap(source string, i, j int) string {
+	target := []rune(source)
+	target[i], target[j] = target[j], target[i]
+	return string(target)
+}
+
+//String op end
 
 //merge 2 arrays ignoring duplicates
 func mergeSortedArray(a, b []int) []int {
@@ -213,7 +227,11 @@ func main() {
 	//comment this flag set before submissionor ignore for function base exams
 	g_df = true
 	// g_df = false //default
-	Dln("DEBUG MODE")
+	if g_df {
+		Dln("DEBUG MODE")
+	}
 	//end debug ops
-	fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	// fmt.Println(fun_name([]int{1, 2, 3, 4, 5}))
+	s := "Swapnil"
+	fmt.Printf("org: %s \ncopy:%s \norg after:%s", s, strCharSwap(s, 2, 5), s)
 }

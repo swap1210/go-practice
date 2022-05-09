@@ -124,29 +124,30 @@ func main() {
 
 	t := mi.readInt()
 	for caseNo := 1; caseNo <= t; caseNo++ {
-		fmt.Printf("Case #%d: %v\n", caseNo, brokenCalc(mi))
+		fmt.Printf("Case #%d:\n", caseNo)
+		brokenCalc(mi)
 	}
-
 }
 
-func brokenCalc(mi CJInput) map[int]bool {
+func brokenCalc(mi CJInput) {
 	sizes := mi.readInts()
-	total_nums := sizes[0]
-	total_ops := sizes[1]
+	// total_nums := sizes[0]
+	// total_signs := sizes[1]
 	touches := sizes[2]
 	nums := mi.readInts()
-	ops := mi.readInts()
+	signs := mi.readInts()
 	target := mi.readInt()
 
-	//remove equal op
-	touches--
-	ans := make(map[int]bool)
+	// ans := make(map[int]bool)
+	output := make(map[int]int)
 
-	fmt.Println(total_nums, total_ops, touches, nums, ops, target)
-	allCombi := allCombiFunc()
-	return allCombi
+	getMinSteps(target, output, 1, nums, touches, signs)
 }
 
-func allCombiFunc(arr []int, n int, r int, index int, data []int, i int) {
-
+func getMinSteps(target int, output map[int]int, cur_level int,
+	workingNumber []int, o int, signs []int) {
+	fmt.Println(target, output, 1, o, workingNumber, signs)
+	if len(workingNumber) == 0 {
+		return
+	}
 }
