@@ -150,4 +150,5 @@ func getMinSteps(target int, output map[int]int, cur_level int,
 	if len(workingNumber) == 0 {
 		return
 	}
+
 }
