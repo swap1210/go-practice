@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-
-	"./leetcode/streak"
 )
+
+func lastStoneWeight(stones []int) int {
+	return 0
+}
 
 func main() {
 
-	fmt.Println(streak.LastStoneWeight([]int{10}))
+	fmt.Println(lastStoneWeight([]int{10}))
 }
