@@ -1,32 +1,26 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	//x := "racecar"
-	//fmt.Print(x[1:7]);
-	fmt.Print(longStr("asdaabbaa"))
-	//fmt.Print(palindrone("racecar"))
+	fmt.Println("res ", palindrone("asdaabbaa"))
 }
 
-func longStr(s string) string {
+func palindrone(s string) string {
 	if s == "" || len(s) < 1 {
 		return ""
 	}
 
-	start := 0
-	end := 0
+	start, end := 0, 0
 
 	for i := 0; i < len(s); i++ {
 		len1 := expandMiddle(s, i, i)
 		len2 := expandMiddle(s, i, i+1)
 		len := 0
-		if len2 > len1 {
-			len = len2
-		} else {
+		if len1 > len2 {
 			len = len1
+		} else {
+			len = len2
 		}
 
 		if len > end-start {
@@ -37,7 +31,7 @@ func longStr(s string) string {
 	return s[start+1 : (end)]
 }
 
-func expandMiddle(s string, left int, right int) int {
+func expandMiddle(s string, left, right int) int {
 	if s == "" || left > right {
 		return 0
 	}
@@ -45,5 +39,6 @@ func expandMiddle(s string, left int, right int) int {
 		left--
 		right++
 	}
+
 	return right - left + 1
 }

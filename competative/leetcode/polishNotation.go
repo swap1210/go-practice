@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type Stack []string
 
 func (s *Stack) isEmpty() bool {
@@ -29,9 +34,35 @@ func (s *Stack) push(ele string) {
 }
 
 func main() {
-
+	arr := []string{"2", "1", "+", "3", "*"}
+	fmt.Println("polishNotation ", polishNotation(arr))
 }
 
-func polishNotation() {
+func polishNotation(arr []string) int {
+	var st Stack
+	for _, s := range arr {
+		if s == "+" || s == "-" || s == "*" || s == "/" {
+			e1, _ := st.pop()
+			e2, _ := st.pop()
 
+			v1, _ := strconv.Atoi(e1)
+			v2, _ := strconv.Atoi(e2)
+
+			if s == "+" {
+				st.push(strconv.Itoa(v1 + v2))
+			} else if s == "-" {
+				st.push(strconv.Itoa(v1 - v2))
+			} else if s == "*" {
+				st.push(strconv.Itoa(v1 * v2))
+			} else if s == "/" {
+				st.push(strconv.Itoa(v1 / v2))
+			}
+		} else {
+			st.push(s)
+		}
+	}
+
+	res, _ := st.pop()
+	res_i, _ := strconv.Atoi(res)
+	return res_i
 }
