@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sort"
-	"strconv"
 )
 
 func main() {
@@ -13,11 +12,11 @@ func main() {
 func fourSum(num []int, target int) [][]int {
 	sort.Ints(num)
 	res := [][]int{}
-	hash := make(map[string]int)
+	hash := make(map[[4]int]struct{})
 	for i := 0; i < len(num); i++ {
 		for j := i + 1; j < len(num); j++ {
-			k := j + 1
-			l := len(num) - 1
+			temp := [4]int{num[i], num[j], 0, 0}
+			k, l := j+1, len(num)-1
 			for k < l {
 				sum := num[i] + num[j] + num[k] + num[l]
 				fmt.Println(i, j, k, l, num[i], num[j], num[k], num[l], num, sum)
@@ -26,20 +25,16 @@ func fourSum(num []int, target int) [][]int {
 				} else if sum < target {
 					k++
 				} else {
-					temp := []int{num[i], num[j], num[k], num[l]}
-					fmt.Println("checking", num[i], num[j], num[k], num[l])
-					sort.Ints(temp)
-					str := ""
-					for x := 0; x < 4; x++ {
-						str += strconv.Itoa(temp[x]) + " "
+					temp[2], temp[3] = num[k], num[l]
+					if _, ok := hash[temp]; !ok {
+						hash[[4]int{num[i], num[j], num[k], num[l]}] = struct{}{}
+						res = append(res, []int{temp[0], temp[1], temp[2], temp[3]})
 					}
-					if _, ok := hash[str]; !ok {
-						hash[str] = 0
-						res = append(res, temp)
+					k++
+					for k < l && num[k] == num[k-1] {
+						k++
 					}
 				}
-				k++
-				l--
 			}
 		}
 	}
