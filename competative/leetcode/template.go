@@ -245,6 +245,29 @@ func (s *Stack) push(ele string) {
 
 //stack end
 
+func twoDP(a [][]int) {
+	for _, r := range a {
+		for _, c := range r {
+			fmt.Print(c, " ")
+		}
+		fmt.Println()
+	}
+}
+
+func make3DInt(m, n, p int) [][][]int {
+	buf := make([]int, m*n*p)
+
+	x := make([][][]int, m)
+	for i := range x {
+		x[i] = make([][]int, n)
+		for j := range x[i] {
+			x[i][j] = buf[:p:p]
+			buf = buf[p:]
+		}
+	}
+	return x
+}
+
 //end common leet code helper func
 
 func fun_name(input []int) int {
