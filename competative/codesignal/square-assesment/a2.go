@@ -8,14 +8,17 @@ import (
 func main() {
 	matrix := [][]string{
 		{".", ".", ".", "."},
-		{".", ".", "F", "."},
-		{".", ".", "F", "."},
-		{".", ".", "F", "#"},
+		{".", "F", ".", "."},
+		{".", "F", "F", "F"},
 		{".", ".", ".", "."},
+		{".", ".", "#", "."},
 		{".", ".", ".", "."},
 		{".", ".", ".", "."},
 	}
+
+	fmt.Println("before")
 	p2d(matrix)
+	fmt.Println("after")
 	p2d(freefall(matrix))
 }
 
@@ -26,7 +29,7 @@ func freefall(m [][]string) [][]string {
 		ans[r_i] = make([]string, len(m[r_i]))
 		for c_i, c := range r {
 			ans[r_i][c_i] = m[r_i][c_i]
-			fmt.Println("copying", c, " at ", r_i, c_i, ans[r_i][c_i])
+			//fmt.Println("copying", c, " at ", r_i, c_i, ans[r_i][c_i])
 			if c == string('F') {
 				t := dFromFloor(m, r_i, c_i)
 				if t != -1 && t < min {
@@ -47,7 +50,11 @@ func freefall(m [][]string) [][]string {
 		for r_i, r := range m {
 			for c_i, c := range r {
 				if c == string('F') {
-					ans[r_i][c_i] = string('.')
+					if r_i-min >= 0 {
+						ans[r_i][c_i] = m[r_i-1][c_i]
+					} else {
+						ans[r_i][c_i] = string('.')
+					}
 					ans[r_i+min][c_i] = string('F')
 				}
 			}
