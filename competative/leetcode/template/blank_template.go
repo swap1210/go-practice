@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 
-	fmt.Println(956 % 900)
+	fmt.Println(func_name())
 }
 
 func func_name() string {
