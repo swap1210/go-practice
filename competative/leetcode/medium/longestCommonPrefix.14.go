@@ -6,16 +6,16 @@ import (
 )
 
 func main() {
-	s := []string{"flower", "flow", "flight"}
+	s := []string{"flower", "flow", "flight", "fly"}
 	fmt.Println(longestCommonPrefix(s))
 }
 
 func longestCommonPrefix(strs []string) string {
 
 	tillNow := strs[0]
-	for i := 1; i < len(strs); i++ {
+	for i := 1; i < len(strs); i++ { //word by word comparision startign with the first word
 		ind := -1
-		for len(tillNow) > 0 && ind != 0 {
+		for len(tillNow) > 0 && ind != 0 { //
 			ind = strings.Index(strs[i], tillNow)
 			if ind != 0 {
 				if len(tillNow) >= 1 {
@@ -23,7 +23,6 @@ func longestCommonPrefix(strs []string) string {
 				} else {
 					tillNow = ""
 				}
-				continue
 			}
 		}
 
