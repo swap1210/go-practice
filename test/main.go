@@ -4,12 +4,22 @@ import (
 	"fmt"
 )
 
+type Freq struct {
+	key  rune
+	freq int
+}
+
 func main() {
+	m := make(map[int]*Freq)
+	f := &Freq{546, 2}
+	m[2] = f
+	m[2].freq = 21
+	fmt.Println(m[2])
 	//1,2,3,4,5,6,7,8
 	//k = 9
-	parcel := []int{2, 3, 6, 10, 11}
+	// parcel := []int{2, 3, 6, 10, 11}
 
-	fmt.Println("v ", getMinParcel_V(parcel, 9))
+	// fmt.Println("v ", getMinParcel_V(parcel, 9))
 
 }
 
