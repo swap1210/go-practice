@@ -8,6 +8,16 @@ import (
 )
 
 func main() {
+	sum := 0
+	a,b,c := 20,23,90
+	sum += a //sum = sum + a
+	sum += b //sum = sum + b
+	sum += c //sum = sum + c
+	mul := 1
+	//a,b,c := 20,23,90
+	mul += a //mul = mul + a
+	mul += b //mul = mul + b
+	mul += c //mul = mul + c
 	/*
 							x := 4
 							fmt.Printf("%d",adjacentElementsProduct(x))
@@ -82,17 +92,17 @@ func main() {
 			fmt.Printf("\n")
 		}
 	*/
-	input1 := [][]bool{{true, false, false},
-		{false, true, false},
-		{false, false, false}}
-	matrix := minesweeper(input1)
+	// input1 := [][]bool{{true, false, false},
+	// 	{false, true, false},
+	// 	{false, false, false}}
+	// matrix := minesweeper(input1)
 
-	for i := 0; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[0]); j++ {
-			fmt.Printf("%d ", matrix[i][j])
-		}
-		fmt.Printf("\n")
-	}
+	// for i := 0; i < len(matrix); i++ {
+	// 	for j := 0; j < len(matrix[0]); j++ {
+	// 		fmt.Printf("%d ", matrix[i][j])
+	// 	}
+	// 	fmt.Printf("\n")
+	// }
 }
 
 //#24
@@ -1269,7 +1279,7 @@ func makeArrayConsecutive2(statues []int) int {
 	return temp
 }
 
-//#5 diamond (interesting polygon
+// #5 diamond (interesting polygon
 func diamond(n int) {
 	for h := 1; h <= n; h++ {
 		for i := 1; i <= h; i++ {
@@ -1291,7 +1301,7 @@ func diamond(n int) {
 	}
 }
 
-//#3
+// #3
 func checkPalindrome(inputString string) bool {
 	var lnth int = len(inputString)
 	lnth--
@@ -1305,7 +1315,7 @@ func checkPalindrome(inputString string) bool {
 	return true
 }
 
-//#4
+// #4
 func adjacentElementsProduct(inputArray []int) int {
 	max := 0
 	temp_int := 0
